@@ -1,0 +1,23 @@
+<ng-container *ngIf="bankAccountFormGroup">
+  <section class="accounts-container">
+    <div class="accounts-item" *ngIf="showSourceSection">
+      <fund-account-selector
+        [label]="'Source'"
+        [control]="sourceControl"
+        [bankAccounts]="getAccountsToDisplay(targetControl.value)"
+      ></fund-account-selector>
+    </div>
+
+    <div class="accounts-item" *ngIf="showTargetSection">
+      <fund-account-selector
+        [label]="'Target'"
+        [control]="targetControl"
+        [bankAccounts]="getAccountsToDisplay(sourceControl.value)"
+      ></fund-account-selector>
+    </div>
+  </section>
+
+  <mat-error *ngIf="bankAccountFormGroup.hasError('clientDistinct')"
+    >Source and target bank account must have the same client id.</mat-error
+  >
+</ng-container>

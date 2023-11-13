@@ -1,0 +1,39 @@
+<table mat-table [dataSource]="transactions">
+  <ng-container matColumnDef="transaction_type">
+    <th mat-header-cell *matHeaderCellDef>Transaction Type</th>
+    <td mat-cell *matCellDef="let transaction">
+      {{ transaction.transaction_type }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="sourceHolderName">
+    <th mat-header-cell *matHeaderCellDef>Source</th>
+    <td mat-cell *matCellDef="let transaction">
+      {{ transaction.source?.account_holder_name }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="targetHolderName">
+    <th mat-header-cell *matHeaderCellDef>Target</th>
+    <td mat-cell *matCellDef="let transaction">
+      {{ transaction.target?.account_holder_name }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef>Description</th>
+    <td mat-cell *matCellDef="let transaction">
+      {{ transaction.description }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="amount">
+    <th mat-header-cell *matHeaderCellDef>Amount</th>
+    <td mat-cell *matCellDef="let transaction">
+      {{ transaction.amount | currency : "GBP" }}
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="transactionTableColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: transactionTableColumns"></tr>
+</table>

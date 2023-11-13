@@ -1,0 +1,57 @@
+<div class="container">
+  <form [formGroup]="transactionForm" (ngSubmit)="createTransaction()">
+    <section class="form-container">
+      <mat-form-field floatLabel="always">
+        <mat-label>Select a transaction type</mat-label>
+        <mat-select formControlName="transaction_type">
+          <mat-option
+            *ngFor="let type of transactionTypes"
+            [value]="type.value"
+            >{{ type.label }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+
+      <fund-bank-accounts
+        [bankAccounts]="bankAccounts$ | async"
+        [bankAccountFormGroup]="bankAccountFormGroup"
+        [transactionType]="transactionType"
+      >
+      </fund-bank-accounts>
+
+      <mat-form-field>
+        <mat-label>Transaction description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+
+      <mat-form-field floatLabel="always">
+        <mat-label>Amount</mat-label>
+        <input
+          matInput
+          type="number"
+          placeholder="0"
+          formControlName="amount"
+        />
+        <span matTextPrefix>£&nbsp;</span>
+        <mat-error *ngIf="amountControl.hasError('required')"
+          >You must enter the amount</mat-error
+        >
+        <mat-error *ngIf="amountControl.hasError('min')"
+          >Please enter a valid amount. The minimum required value is
+          1.</mat-error
+        >
+        <mat-error *ngIf="amountControl.hasError('amountExceeded')"
+          >Amount should not exceed the source bank account balance.</mat-error
+        >
+      </mat-form-field>
+
+      <button mat-raised-button color="accent" type="submit">
+        Create Transaction
+      </button>
+    </section>
+  </form>
+
+  <button mat-raised-button color="primary" (click)="goToTransactions()">
+    View All Transactions
+  </button>
+</div>

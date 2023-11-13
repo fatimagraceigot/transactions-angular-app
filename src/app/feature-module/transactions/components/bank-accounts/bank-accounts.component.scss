@@ -1,0 +1,8 @@
+.accounts-container {
+  display: flex;
+  gap: 16px;
+
+  .accounts-item {
+    flex-grow: 1;
+  }
+}
